@@ -1,34 +1,34 @@
-const form_element = document.getElementById("input_form");
-
-const getFormJSON = (form) => {
-    const data = new FormData(form);
-	console.log(data)
-    return Array.from(data.keys()).reduce((result, key) => {
-      result[key] = data.get(key);
-      return result;
-    }, {});
-  };
-
-const handler = (event) => {
+"use strict";
+function submitHandler(event) {
     event.preventDefault();
-    const valid = form_element.reportValidity();
-
-	if (!valid) {
-		return
-	}
-	const result = getFormJSON(form_element);
-	fetch('/submitPresensi', {
-		method: 'POST',
-		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(result)
-	})
-	.then((response) => response.json())
-	.then(data => console.log(data))
+    const forms = document.querySelector("form#input_form");
+    const valid = forms.reportValidity();
+    if (!valid) {
+        return;
+    }
+    const result = getFormJSON(forms);
+    fetch('/submitPresensi', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(result)
+    })
+        .then((response) => {
+        if (response.ok) {
+            window.location.href = '/success';
+        }
+    });
 }
-
-form_element.addEventListener("submit", handler);
-
-
+function getFormJSON(form) {
+    const data = new FormData(form);
+    let retval = {
+        "nama": data.get("nama"),
+        "tanggal": data.get("tanggal"),
+        "status_hadir": data.get("status_hadir"),
+        "alasan": data.get("alasan")
+    };
+    return retval;
+}
+;
