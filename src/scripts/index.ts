@@ -9,7 +9,9 @@ function submitHandler (event: SubmitEvent): void {
 	if (!valid) {
 		return
 	}
+
 	const result = getFormJSON(forms);
+
 	fetch('/submitPresensi', {
 		method: 'POST',
 		headers: {
@@ -20,22 +22,29 @@ function submitHandler (event: SubmitEvent): void {
 	})
 	.then((response) => {
 			if (response.ok){
-				window.location.href = '/success'
+				window.location.href = `/success?source=Presensi&nama=${result.nama}`
 			}
 	})
 }
 
-function getFormJSON (form: HTMLFormElement) : JSON {
+type AttendanceFormObj = {
+	nama : string,
+	tanggal: string,
+	status_hadir: string,
+	alasan: string
+};
+
+function getFormJSON (form: HTMLFormElement) : AttendanceFormObj {
     const data = new FormData(form);
 	
-    let retval: any = {
-        "nama": data.get("nama"),
-        "tanggal": data.get("tanggal"),
-        "status_hadir": data.get("status_hadir"),
-        "alasan": data.get("alasan")
+    const retval: AttendanceFormObj ={
+        nama: data.get("nama") as string,
+        tanggal: data.get("tanggal") as string,
+        status_hadir: data.get("status_hadir") as string,
+        alasan: data.get("alasan") as string
     };
 
     return retval;
     
-  };
+};
 

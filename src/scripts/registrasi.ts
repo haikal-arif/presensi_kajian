@@ -1,6 +1,9 @@
 const form_registrasi = document.querySelector("form#form_registrasi") as HTMLFormElement;
 form_registrasi.addEventListener("submit", submitHandlerFactory(form_registrasi));
 
+type RegistrationFormObj = {
+	nama : string,
+};
 
 function submitHandlerFactory(element: HTMLFormElement) {
 
@@ -11,8 +14,8 @@ function submitHandlerFactory(element: HTMLFormElement) {
         if (!element.reportValidity())
             return;
         
-        const result = {
-            "nama" : new FormData(element).get("nama")
+        const result: RegistrationFormObj = {
+            nama : new FormData(element).get("nama") as string
         }
 
         fetch('/registerSantri', {
@@ -25,7 +28,7 @@ function submitHandlerFactory(element: HTMLFormElement) {
         })
         .then((response) => {
                 if (response.ok){
-                    window.location.href = '/success'
+                    window.location.href = `/success?source=Registrasi&nama=${result.nama}`
                 }
         })
         

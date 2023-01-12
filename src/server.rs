@@ -20,7 +20,7 @@ pub fn config_app(
     })
 }
 
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Debug, serde::Serialize, serde::Deserialize)]
 struct FormSubmission {
     nama: String,
     tanggal: chrono::NaiveDate,
@@ -28,13 +28,19 @@ struct FormSubmission {
     alasan: String,
 }
 
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Debug, serde::Serialize, serde::Deserialize)]
 struct FormResponse {
     msg: String,
 }
 
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Debug, serde::Serialize, serde::Deserialize)]
 struct RegistrationForm {
+    nama: String,
+}
+
+#[derive(Debug, serde::Deserialize)]
+struct SuccessRequestQuery {
+    source: String,
     nama: String,
 }
 
@@ -50,6 +56,40 @@ async fn index(
     let rendered_page = tmpl
         .render("index.html", &ctx)
         .map_err(|_| actix_web::error::ErrorInternalServerError("Template error"))?;
+    Ok(HttpResponse::Ok().body(rendered_page))
+}
+
+#[actix_web::get("/success")]
+async fn success(
+    tmpl: web::Data<Tera>,
+    query: web::Query<SuccessRequestQuery>,
+) -> Result<impl Responder, AWError> {
+    let source = &query.source;
+    let nama_santri = &query.nama;
+
+    let mut ctx = tera::Context::new();
+
+    match source.as_str() {
+        "Presensi" => ctx.insert(
+            "success_msg",
+            &format!(
+                "Presensi sudah tercatat. Jazaakallahu Khairan {}",
+                nama_santri
+            ),
+        ),
+        "Registrasi" => ctx.insert(
+            "success_msg",
+            &format!("Registrasi berhasil. Jazaakallahu Khairan {}", nama_santri),
+        ),
+        _ => {
+            return Err(actix_web::error::ErrorBadRequest("Invalid Query"));
+        }
+    };
+
+    let rendered_page = tmpl
+        .render("success.html", &ctx)
+        .map_err(|_| actix_web::error::ErrorInternalServerError("Template error"))?;
+
     Ok(HttpResponse::Ok().body(rendered_page))
 }
 

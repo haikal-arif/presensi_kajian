@@ -7,7 +7,7 @@ function submitHandlerFactory(element) {
         if (!element.reportValidity())
             return;
         const result = {
-            "nama": new FormData(element).get("nama")
+            nama: new FormData(element).get("nama")
         };
         fetch('/registerSantri', {
             method: 'POST',
@@ -19,7 +19,7 @@ function submitHandlerFactory(element) {
         })
             .then((response) => {
             if (response.ok) {
-                window.location.href = '/success';
+                window.location.href = `/success?source=Registrasi&nama=${result.nama}`;
             }
         });
     };
