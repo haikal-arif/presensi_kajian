@@ -1,4 +1,6 @@
 "use strict";
+const form_element = document.querySelector("form#input_form");
+form_element.addEventListener("submit", submitHandler);
 function submitHandler(event) {
     event.preventDefault();
     const forms = document.querySelector("form#input_form");

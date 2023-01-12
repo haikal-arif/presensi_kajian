@@ -1,7 +1,9 @@
+const form_element = document.querySelector("form#input_form") as HTMLFormElement;
+form_element.addEventListener("submit", submitHandler);
 
 function submitHandler (event: SubmitEvent): void {
     event.preventDefault();
-    const forms = (document.querySelector("form#input_form") as HTMLFormElement);
+    const forms = document.querySelector("form#input_form") as HTMLFormElement;
     const valid = forms.reportValidity();
 
 	if (!valid) {
