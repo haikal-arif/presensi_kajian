@@ -1,4 +1,4 @@
-const form_registrasi = document.querySelector("form_registrasi#form_registrasi") as HTMLFormElement;
+const form_registrasi = document.querySelector("form#form_registrasi") as HTMLFormElement;
 form_registrasi.addEventListener("submit", submitHandlerFactory(form_registrasi));
 
 
@@ -15,7 +15,7 @@ function submitHandlerFactory(element: HTMLFormElement) {
             "nama" : new FormData(element).get("nama")
         }
 
-        fetch('/submitPresensi', {
+        fetch('/registerSantri', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

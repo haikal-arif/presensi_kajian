@@ -1,5 +1,5 @@
 "use strict";
-const form_registrasi = document.querySelector("form_registrasi#form_registrasi");
+const form_registrasi = document.querySelector("form#form_registrasi");
 form_registrasi.addEventListener("submit", submitHandlerFactory(form_registrasi));
 function submitHandlerFactory(element) {
     const submitFormRegistrasi = (event) => {
@@ -9,7 +9,7 @@ function submitHandlerFactory(element) {
         const result = {
             "nama": new FormData(element).get("nama")
         };
-        fetch('/submitPresensi', {
+        fetch('/registerSantri', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
