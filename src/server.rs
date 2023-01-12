@@ -16,6 +16,7 @@ pub fn config_app(
             .service(index)
             .service(submit)
             .service(register)
+            .service(success)
             .service(fs::Files::new("/", "views/static").show_files_listing());
     })
 }
