@@ -28,7 +28,7 @@ async fn main() -> std::io::Result<()> {
         }
     };
 
-    println!("⚙️ Server listening on: {}", addr);
+    println!("⚙️  Server listening to {}", addr);
     HttpServer::new(move || {
         App::new()
             .wrap(actix_web::middleware::Logger::default())
