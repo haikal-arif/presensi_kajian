@@ -17,16 +17,12 @@ async fn main() -> std::io::Result<()> {
 
     // DB Setup
     let manager = r2d2_sqlite::SqliteConnectionManager::file(db_file.clone());
-    let pool = r2d2::Pool::new(manager).expect(format!("Database should be at {}", db_file).as_str());
+    let pool =
+        r2d2::Pool::new(manager).expect(format!("Database should be at {}", db_file).as_str());
 
     // Template Renderer
-    let tera_instance = match Tera::new(concat!(env!("CARGO_MANIFEST_DIR"), "/views/templates/**/*")) {
-        Ok(t) => t,
-        Err(e) => {
-            print!("Parsing error(s): {} ", e);
-            std::process::exit(1);
-        }
-    };
+    let tera_instance = Tera::new(concat!(env!("CARGO_MANIFEST_DIR"), "/views/templates/**/*"))
+        .expect("Template folder should be here");
 
     println!("⚙️  Server listening to {}", addr);
     HttpServer::new(move || {

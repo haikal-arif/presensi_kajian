@@ -64,11 +64,23 @@ pub async fn submit_presensi(
 
     let pool = dbpool.clone();
     let conn = web::block(move || pool.get()).await?.map_err(|err| {
-        aw_error::ErrorInternalServerError(format!("Failed to connect to db: {}", err.to_string()))
+        aw_error::ErrorInternalServerError(format!("Failed to connect to db: {}", err))
     })?;
     conn.execute(
         format!("UPDATE presensi SET {} = ?1 WHERE nama=?2", column_name).as_str(),
         (status, nama),
     )
     .map_err(|err| aw_error::ErrorInternalServerError(err))
+}
+
+pub async fn register_santri(
+    nama: &String,
+    dbpool: web::Data<SqlitePool>,
+) -> Result<usize, AWError> {
+    let pool = dbpool.clone();
+    let conn = web::block(move || pool.get()).await?.map_err(|err| {
+        aw_error::ErrorInternalServerError(format!("Failed to connect to db: {}", err))
+    })?;
+    conn.execute("INSERT INTO presensi (nama) VALUES = ?", (nama,))
+        .map_err(|err| aw_error::ErrorInternalServerError(err))
 }
