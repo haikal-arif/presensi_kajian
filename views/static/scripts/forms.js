@@ -25,7 +25,8 @@ const handler = (event) => {
 		},
 		body: JSON.stringify(result)
 	})
-	.then(response => console.log(response))
+	.then((response) => response.json())
+	.then(data => console.log(data))
 }
 
 form_element.addEventListener("submit", handler);

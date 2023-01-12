@@ -1,12 +1,10 @@
-use actix_web::{
-    self, App, HttpServer, 
-};
+use actix_web::{self, App, HttpServer};
 use dotenv::dotenv;
+use env_logger;
 use tera::{self, Tera};
 
-mod server;
 mod db;
-
+mod server;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -19,7 +17,7 @@ async fn main() -> std::io::Result<()> {
     // DB Setup
     let manager = r2d2_sqlite::SqliteConnectionManager::file("datasantri.db");
     let pool = r2d2::Pool::new(manager).unwrap();
-    
+
     // Template Renderer
     let tera = match Tera::new(concat!(env!("CARGO_MANIFEST_DIR"), "/views/templates/**/*")) {
         Ok(t) => t,
@@ -30,7 +28,7 @@ async fn main() -> std::io::Result<()> {
     };
 
     println!("Listening on: {}, open browser and visit have a try!", addr);
-    HttpServer::new(move || {        
+    HttpServer::new(move || {
         App::new()
             .wrap(actix_web::middleware::Logger::default())
             .configure(server::config_app(tera.clone(), pool.clone()))
