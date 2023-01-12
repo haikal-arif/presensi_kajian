@@ -81,6 +81,6 @@ pub async fn register_santri(
     let conn = web::block(move || pool.get()).await?.map_err(|err| {
         aw_error::ErrorInternalServerError(format!("Failed to connect to db: {}", err))
     })?;
-    conn.execute("INSERT INTO presensi (nama) VALUES = ?", (nama,))
+    conn.execute("INSERT INTO presensi (nama) VALUES (?1)", (nama,))
         .map_err(|err| aw_error::ErrorInternalServerError(err))
 }

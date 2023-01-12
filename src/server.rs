@@ -91,7 +91,7 @@ async fn register(
     db::register_santri(nama_santri, dbpool)
         .await
         .map_err(|err| {
-            let err_msg = format!("Gagal submit presensi : {}", err);
+            let err_msg = format!("Pendaftaran gagal : {}", err);
             actix_web::error::ErrorInternalServerError(err_msg)
         })?;
 
