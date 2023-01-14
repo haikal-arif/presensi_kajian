@@ -1,15 +1,33 @@
 body{
-    background-color:bisque;
+    background-color: #f0ebf8;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-p{
-  margin-top: 0;
+h2 {
+  font-size: large;
+  font-weight: 100;
 }
+h2:first-child{
+  margin-top: 0px;
+}
+
+p{
+  font-size: small;
+}
+
+select{
+  width: max-content;
+  background-color: #ffffff;
+  border-color: grey;
+  min-width: 180px;
+  padding: 10px;
+  border-width: 1px;
+}
+
 
 .input-block{
     background-color: white;   
-    max-width: 800px;
+    max-width: 650px;
     border-radius: 10px;
     margin: 0 auto;
     padding: 20px;
@@ -19,45 +37,42 @@ p{
     border-width: 1px;
 }
 
- /* Dropdown Button */
- .dropbtn {
-    background-color: #ffffff;
-    padding: 5px 20px 5px 20px;
-    cursor: pointer;
-    border-style: solid;
-    border-color: grey;
-  }
-  
-  /* Dropdown button on hover & focus */
-  .dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
-  }
-  
-  /* The container <div> - needed to position the dropdown content */
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
-  /* Links inside the dropdown */
-  .dropdown-content a {
-    color: black;
-    text-decoration: none;
-    display: block;
-  }
-  
-  /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: #ddd;}
-  
-  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-  .show {display:block;} 
+.submit-block{
+  max-width: 690px;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+
+
+
+input[name="tanggal"]{
+  min-width: 160px;
+  border-color: grey;
+  border-width: 1px;
+}
+
+input[type="text"]{
+  border-width: 0px 0px 1px 0px;
+  border-color: black;
+  min-width: 160px;
+}
+
+input[type="submit"]{
+  background-color: #7349bd;
+  color: white;
+  font-weight: 400;
+  min-width: 90px;
+  min-height: 35px;
+  border-radius: 5px;
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+
+input[type="date"]{
+  padding: 10px;
+  font-family: "Google Sans", Roboto, Arial, sans-serif;;
+}
+
+
+

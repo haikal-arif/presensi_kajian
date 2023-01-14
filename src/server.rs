@@ -116,7 +116,7 @@ async fn submit(
 
     Ok(web::Json(FormResponse {
         msg: format!(
-            "Presensi sudah tercatat. Jazaakallahu Khairan {}",
+            "Presensi sudah tercatat. Jazaakallahu khairan {}",
             item.nama
         ),
     }))
@@ -137,6 +137,6 @@ async fn register(
         })?;
 
     Ok(web::Json(FormResponse {
-        msg: format!("Nama sudah terdaftar. Jazaakallahu Khairan {}", nama_santri),
+        msg: format!("Nama sudah terdaftar. Jazaakallahu khairan {}", nama_santri),
     }))
 }

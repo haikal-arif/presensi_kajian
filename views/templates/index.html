@@ -15,33 +15,37 @@
 			<h1>Presensi Kajian Al-Mughni</h1>
 		</div>
 		<div id="name" class="input-block">
-			<p>Nama</p>
+			<h2>Nama</h2>
 			<div class="dropdown">
 				<select name="nama" id="namaSantri">
 					{% for santri in list_santri -%}
-  					<option value="{{ santri }}">{{ santri }}</option>
+  					<option value="{{ santri }}"><p> {{ santri }} </p></option>
 					{%- endfor %}
 				</select>
 			</div> 
 			<p><a href="/registrasi.html">Belum terdaftar ?</a></p>
 		</div>
 		<div id="date" class="input-block">
-			<p>Tanggal Kajian</p>
+			<h2>Tanggal Kajian</h2>
 			<label for="tgl_kajian"></label>
 			<input type="date" name="tanggal">
 		</div>
 		<div id="presence" class="input-block">
-			<p>Bisa Hadir</p>
-			<input type="radio" name="status_hadir" value="hadir">
-			<label>Hadir</label><br>
-			<input type="radio" name="status_hadir" value="absen">
-			<label>Tidak Hadir</label><br>
+			<h2>Bisa Hadir</h2>
+			<label>
+				<input type="radio" name="status_hadir" value="hadir">Hadir
+			</label>
+			<br>
+			<label >
+				<input type="radio" name="status_hadir" value="absen">Tidak Hadir
+			</label>
+			<br>
 		</div>
 		<div id="reason" class="input-block">
-			<p>Alasan</p>
-			<input type="text" name="alasan">
+			<h2>Alasan</h2>
+			<input type="text" name="alasan" placeholder="Alasan anda">
 		</div>
-		<div class="input-block">
+		<div class="submit-block">
 			<input type="submit" value="Submit"	>
 		</div>
 	</form>
