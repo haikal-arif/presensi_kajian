@@ -3,33 +3,44 @@ body{
     font-family: Arial, Helvetica, sans-serif;
 }
 
-h2 {
-  font-size: large;
-  font-weight: 100;
-}
-h2:first-child{
-  margin-top: 0px;
+h1 {
+  font-weight: 200;
 }
 
-p{
-  font-size: small;
+h2 {
+  font-size: 16px;
+  font-weight: 100;
+  margin: 25px 0px;
 }
 
 select{
   width: max-content;
   background-color: #ffffff;
-  border-color: grey;
   min-width: 180px;
-  padding: 10px;
+  border-color: grey;
   border-width: 1px;
+  border-radius: 3px;
+  padding: 10px;
+  margin: 30px 0px;
 }
 
+:first-child{
+  margin-top: 0px;
+}
+
+:last-child{
+  margin-bottom: 0px;
+}
+
+.small{
+  font-size: 12px;
+}
 
 .input-block{
     background-color: white;   
     max-width: 650px;
     border-radius: 10px;
-    margin: 0 auto;
+    margin: 0px auto;
     padding: 20px;
     margin-bottom: 1rem;
     border-style: solid;
@@ -43,22 +54,25 @@ select{
   margin-bottom: 1rem;
 }
 
-
+.asterisk {
+  color: red;
+}
 
 input[name="tanggal"]{
   min-width: 160px;
   border-color: grey;
   border-width: 1px;
+  border-radius: 3px;
 }
 
 input[type="text"]{
   border-width: 0px 0px 1px 0px;
   border-color: black;
-  min-width: 160px;
+  min-width: 200px;
 }
 
 input[type="submit"]{
-  background-color: #7349bd;
+  background-color: #673ab7;
   color: white;
   font-weight: 400;
   min-width: 90px;
@@ -69,9 +83,18 @@ input[type="submit"]{
   padding: 0px;
 }
 
+input[type="submit"]:hover{
+  background-color: #7349bd;
+  cursor: pointer;
+}
+
 input[type="date"]{
   padding: 10px;
   font-family: "Google Sans", Roboto, Arial, sans-serif;;
+}
+
+input[type="radio"]{
+  margin: 7px;
 }
 
 

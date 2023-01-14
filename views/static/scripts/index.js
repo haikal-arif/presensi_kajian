@@ -9,6 +9,26 @@ function submitHandler(event) {
         return;
     }
     const result = getFormJSON(forms);
+    let earlyreturn = false;
+    if (result.status_hadir === "absen" && result.alasan === "") {
+        highlight("reason");
+        earlyreturn = true;
+    }
+    if (result.status_hadir === null) {
+        highlight("presence");
+        earlyreturn = true;
+    }
+    if (result.tanggal === "") {
+        highlight("date");
+        earlyreturn = true;
+    }
+    if (result.nama === null) {
+        highlight("name");
+        earlyreturn = true;
+    }
+    if (earlyreturn) {
+        return;
+    }
     fetch('/submitPresensi', {
         method: 'POST',
         headers: {
@@ -21,6 +41,15 @@ function submitHandler(event) {
         if (response.ok) {
             window.location.href = `/success?source=Presensi&nama=${result.nama}`;
         }
+        else {
+            return response.text();
+        }
+    })
+        .then(data => {
+        if (data === undefined) {
+            return;
+        }
+        alert(data);
     });
 }
 function getFormJSON(form) {
@@ -34,3 +63,8 @@ function getFormJSON(form) {
     return retval;
 }
 ;
+function highlight(id) {
+    const elem = document.querySelector(`div#${id}`);
+    elem.style.borderColor = "red";
+    elem.scrollIntoView();
+}

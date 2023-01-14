@@ -13,31 +13,34 @@
 	<form name="input_form" id="input_form">
 		<div id="title" class="input-block">
 			<h1>Presensi Kajian Al-Mughni</h1>
+			<hr>
+			<p><span class="asterisk">*</span> perlu diisi</p>
 		</div>
 		<div id="name" class="input-block">
-			<h2>Nama</h2>
+			<h2>Nama<span class="asterisk">*</span></h2>
 			<div class="dropdown">
-				<select name="nama" id="namaSantri">
+				<select name="nama" id="namaSantri" class="dropdown">
+					<option value="" disabled selected>Nama</option>
 					{% for santri in list_santri -%}
   					<option value="{{ santri }}"><p> {{ santri }} </p></option>
 					{%- endfor %}
 				</select>
 			</div> 
-			<p><a href="/registrasi.html">Belum terdaftar ?</a></p>
+			<p class="small"><a href="/registrasi.html">Belum terdaftar ?</a></p>
 		</div>
 		<div id="date" class="input-block">
-			<h2>Tanggal Kajian</h2>
+			<h2>Tanggal Kajian<span class="asterisk">*</span></h2>
 			<label for="tgl_kajian"></label>
-			<input type="date" name="tanggal">
+			<input type="date" name="tanggal" class="dropdown">
 		</div>
 		<div id="presence" class="input-block">
-			<h2>Bisa Hadir</h2>
+			<h2>Bisa Hadir<span class="asterisk">*</span></h2>
 			<label>
 				<input type="radio" name="status_hadir" value="hadir">Hadir
 			</label>
 			<br>
 			<label >
-				<input type="radio" name="status_hadir" value="absen">Tidak Hadir
+				<input type="radio" name="status_hadir" value="absen">Udzur
 			</label>
 			<br>
 		</div>

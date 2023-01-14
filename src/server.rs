@@ -74,13 +74,13 @@ async fn success(
         "Presensi" => ctx.insert(
             "success_msg",
             &format!(
-                "Presensi sudah tercatat. Jazaakallahu Khairan {}",
+                "Presensi sudah tercatat. Jazaakallahu khairan {}",
                 nama_santri
             ),
         ),
         "Registrasi" => ctx.insert(
             "success_msg",
-            &format!("Registrasi berhasil. Jazaakallahu Khairan {}", nama_santri),
+            &format!("Registrasi berhasil. Jazaakallahu khairan {}", nama_santri),
         ),
         _ => {
             return Err(actix_web::error::ErrorBadRequest("Invalid Query"));
@@ -110,7 +110,7 @@ async fn submit(
     db::submit_presensi(&item.nama, item.tanggal, status, dbpool)
         .await
         .map_err(|err| {
-            let err_msg = format!("Gagal submit presensi : {}", err);
+            let err_msg = format!("Gagal submit presensi: {}", err);
             actix_web::error::ErrorInternalServerError(err_msg)
         })?;
 
