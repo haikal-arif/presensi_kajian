@@ -8,7 +8,7 @@ struct Santri {
 }
 
 pub async fn get_nama_santri(pool: web::Data<SqlitePool>) -> Result<Vec<String>, AWError> {
-    let pool = pool.clone();
+    let pool = pool.clone(); // web::Data<T> is cheap to clone
     let conn = web::block(move || pool.get())
         .await?
         .map_err(|err| aw_error::ErrorInternalServerError(err))?;

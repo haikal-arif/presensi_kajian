@@ -21,7 +21,7 @@ pub fn config_app(
     })
 }
 
-#[derive(Debug, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 struct FormSubmission {
     nama: String,
     tanggal: chrono::NaiveDate,
@@ -29,12 +29,12 @@ struct FormSubmission {
     alasan: String,
 }
 
-#[derive(Debug, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, serde::Serialize)]
 struct FormResponse {
     msg: String,
 }
 
-#[derive(Debug, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 struct RegistrationForm {
     nama: String,
 }
@@ -45,13 +45,32 @@ struct SuccessRequestQuery {
     nama: String,
 }
 
+#[derive(Debug, serde::Deserialize)]
+struct AttendanceRequestQuery {
+    from: i32,
+    until: i32,
+}
+
+#[derive(Debug, serde::Serialize)]
+struct AttendanceResponseQuery {
+    column_name: Vec<String>,
+    reasons: Vec<String>
+}
+
+#[derive(Debug, serde::Serialize)]
+struct ListNamaSantri {
+    nama: Vec<String>,
+}
+
 #[actix_web::get("/")]
 async fn index(
     tmpl: web::Data<Tera>,
     dbpool: web::Data<db::SqlitePool>,
     _req: HttpRequest,
 ) -> Result<impl Responder, AWError> {
-    let list_santri = db::get_nama_santri(dbpool).await.unwrap();
+    let list_santri = db::get_nama_santri(dbpool)
+        .await
+        .map_err(|err| actix_web::error::ErrorInternalServerError(format!("DB Error: {}", err)))?;
     let mut ctx = tera::Context::new();
     ctx.insert("list_santri", &list_santri);
     let rendered_page = tmpl
@@ -92,6 +111,29 @@ async fn success(
         .map_err(|_| actix_web::error::ErrorInternalServerError("Template error"))?;
 
     Ok(HttpResponse::Ok().body(rendered_page))
+}
+
+#[actix_web::get("/api/namaSantri")]
+async fn get_nama_santri_api(
+    dbpool: web::Data<db::SqlitePool>,
+) -> Result<web::Json<ListNamaSantri>, AWError> {
+    let list_santri = db::get_nama_santri(dbpool)
+        .await
+        .map_err(|err| actix_web::error::ErrorInternalServerError(format!("DB Error: {}", err)))?;
+    Ok(web::Json(ListNamaSantri { nama: list_santri }))
+}
+
+#[actix_web::get("/api/attendance")]
+async fn get_attendance_api(
+    dbpool: web::Data<db::SqlitePool>,
+    query: web::Query<AttendanceRequestQuery>,
+) -> Result<impl Responder, AWError> {
+    let date_range = query.from..=query.until;
+    let jumlah_santri = db::get_nama_santri(dbpool)
+        .await
+        .map_err(|err| actix_web::error::ErrorInternalServerError(format!("DB Error: {}", err)))?
+        .len();
+    Ok(HttpResponse::Ok().body("1"))
 }
 
 #[actix_web::post("/submitPresensi")]
